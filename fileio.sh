@@ -27,7 +27,7 @@ EOF
 
 function error_exit {
     >&2 echo "${progname}: ${1:-"Unknown error"}" 1>&2
-	exit 1
+    exit 1
 }
 
 function error_usage {
@@ -47,35 +47,36 @@ function error_usage {
 function checks {
     # parse args #
     while [[ $# -gt 0 ]]; do
-		case $1 in
-		-u | --upload )
-			arg_upload=1
-            file=$2
-			shift
-            shift
-			;;
-        -d | --download )
-            arg_download=1
-            file=$2
-            output=${3:-/dev/stdout}
-            shift
-            shift
-            shift
-            ;;
-        -e | --expires )
-            arg_expires=1
-            expiration=$2
-            shift
-            shift
-            ;;
-        -h | --help )
-            print_help
-            exit 0
-            ;;
-        *)
-			error_usage "Invalid option $1"
-		esac
-	done
+    	case $1 in
+    	    -u | --upload )
+                arg_upload=1
+                file=$2
+                shift
+                shift
+                ;;
+            -d | --download )
+                arg_download=1
+                file=$2
+                output=${3:-/dev/stdout}
+                shift
+                shift
+                shift
+                ;;
+            -e | --expires )
+                arg_expires=1
+                expiration=$2
+                shift
+                shift
+                ;;
+            -h | --help )
+                print_help
+                exit 0
+                ;;
+            *)
+                error_usage "Invalid option $1"
+                ;;
+        esac
+    done
 
     # check args validity #
     if ! [ -z ${arg_upload:+$arg_download} ]; then
